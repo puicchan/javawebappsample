@@ -1,0 +1,18 @@
+node {
+  stage('init') {
+    checkout scm
+  }
+  
+  stage('build') {
+    sh 'mvn clean package'
+  }
+  
+  stage('deploy') {
+    def resourceGroup = 'pclinux'
+    def webAppName = 'pclinux'
+    def registryServer = 'pcRegistry1.azurecr.io'
+    def imageTag = sh script: 'git describe | tr -d "\n"', returnStdout: true
+    def imageName = "$registryServer/calculator"
+    azureWebAppPublish azureCredentialsId: 'mySp', publishType: 'docker', resourceGroup: resourceGroup, appName: webAppName, dockerImageName: imageName, dockerImageTag: imageTag, dockerRegistryEndpoint: [credentialsId: 'pcRegistry1', url: "http://$registryServer"]
+  }
+}
