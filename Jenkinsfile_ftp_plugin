@@ -1,0 +1,18 @@
+node {
+  stage('init') {
+    checkout scm
+  }
+  
+  stage('build') {
+    sh 'mvn clean package'
+  }
+  
+  stage('deploy') {
+    def resourceGroup = 'pcjenkinsdemo'
+    def webAppName = 'jenkinsdemoapp'
+    sh 'mv target/*.war target/ROOT.war'
+    azureWebAppPublish azureCredentialsId: 'mysp', publishType: 'file',
+                       resourceGroup: resourceGroup, appName: webAppName,
+                       filePath: '*.war', sourceDirectory: 'target', targetDirectory: 'webapps'
+  }
+}
