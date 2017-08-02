@@ -1,4 +1,4 @@
-simport groovy.json.JsonSlurper
+import groovy.json.JsonSlurper
 
 def getAcrLoginServer(def acrSettingsJson) {
   def acrSettings = new JsonSlurper().parseText(acrSettingsJson)
