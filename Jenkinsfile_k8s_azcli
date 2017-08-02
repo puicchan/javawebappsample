@@ -1,4 +1,4 @@
-import groovy.json.JsonSlurper
+simport groovy.json.JsonSlurper
 
 def getAcrLoginServer(def acrSettingsJson) {
   def acrSettings = new JsonSlurper().parseText(acrSettingsJson)
@@ -19,7 +19,7 @@ node {
     def imageName = 'calculator'
     // generate version, it's important to remove the trailing new line in git describe output
     def version = sh script: 'git describe | tr -d "\n"', returnStdout: true
-    withCredentials([azureServicePrincipal('mySp')]) {
+    withCredentials([azureServicePrincipal('mysp')]) {
       // login Azure
       sh '''
         az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
