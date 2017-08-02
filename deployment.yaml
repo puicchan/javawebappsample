@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: calculator
-        image: pcregistry1.azurecr.io/calculator:9
+        image: pcregistry1.azurecr.io/calculator:$version
         ports:
         - containerPort: 8080
       imagePullSecrets:
