@@ -17,8 +17,8 @@ node {
   }
   
   stage('deploy') {
-    def resourceGroup = 'pcjenkinsdemo' 
-    def webAppName = 'jenkinsdemoapp'
+    def resourceGroup = 'pclinuxdemosg' 
+    def webAppName = 'pcwebappdemo'
     // login Azure
     withCredentials([azureServicePrincipal('mysp')]) {
       sh '''
